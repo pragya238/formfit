@@ -73,7 +73,7 @@ The endpoint must accept `model`, `messages`, `temperature`, and `max_tokens`, r
 | `scripts/prepare-assets.mjs` | Reproducible local PDF/OCR assets |
 | `scripts/test-core.mjs` | Core regression checks |
 
-The app uses React, TypeScript, Vinext (a Vite-based Next.js implementation), Canvas, PDF.js, pdf-lib, and Tesseract.js. It was built for a Cloudflare-compatible runtime. This is not an unmodified Next.js/Vercel starter; a Vercel deployment would need a small runtime adaptation.
+The app uses React, TypeScript, Next.js, Canvas, PDF.js, pdf-lib, and Tesseract.js. It also retains the Cloudflare-compatible tooling used by the original preview, but the standard Next.js scripts now support direct Vercel deployment.
 
 ## Verification
 
@@ -82,6 +82,10 @@ npx --yes pnpm@11.19.0 check
 npx --yes pnpm@11.19.0 test
 npx --yes pnpm@11.19.0 build
 ```
+
+## Deploy on Vercel
+
+Import `pragya238/formfit` in Vercel and keep the defaults: framework **Next.js**, install command `pnpm install --frozen-lockfile`, and build command `pnpm build`. Add `GENERATION_URL`, `GENERATION_MODEL`, and `GENERATION_API_KEY` only if you want the optional GenAI explanation; the core app works without them.
 
 Browser end-to-end testing and cross-device visual QA were not run. Core tests and the production build are the initial checks; inspect the sample, your own image, and a multi-page PDF in your target browser before adding portfolio claims.
 
