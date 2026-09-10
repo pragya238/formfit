@@ -1,13 +1,16 @@
 import vinext from "vinext";
 import { defineConfig } from "vite";
-import hostingConfig from "./.openai/hosting.json";
 import { readExecutionProfile } from "./scripts/execution-profile.mjs";
 import { sites } from "./build/sites-vite-plugin";
 
 const SITE_CREATOR_PLACEHOLDER_DATABASE_ID =
   "00000000-0000-4000-8000-000000000000";
 
-const { d1, r2 } = hostingConfig;
+// The Cloudflare preview can provide optional bindings through environment
+// variables. Keep this config self-contained so standard Next.js hosts such as
+// Vercel can type-check the repository without the internal Sites manifest.
+const d1 = process.env.SITES_D1_BINDING ?? null;
+const r2 = process.env.SITES_R2_BINDING ?? null;
 
 // macOS Seatbelt blocks FSEvents, so Codex previews need polling for HMR.
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
