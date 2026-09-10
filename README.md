@@ -87,6 +87,12 @@ npx --yes pnpm@11.19.0 build
 
 Import `pragya238/formfit` in Vercel and keep the defaults: framework **Next.js**, install command `pnpm install --frozen-lockfile`, and build command `pnpm build`. Add `GENERATION_URL`, `GENERATION_MODEL`, and `GENERATION_API_KEY` only if you want the optional GenAI explanation; the core app works without them.
 
+## Extension and installable app
+
+The repository now includes `extension/`, a Chrome/Edge Manifest V3 companion that scans the visible upload instructions on the active page and opens FormFit with the detected brief prefilled. Load it unpacked from the extensions page while developing; see `extension/README.md` for the exact steps.
+
+The web app is also installable as a PWA. On supported desktop browsers and Android, use the browser’s **Install app** option. It keeps the same local-first conversion flow and can be upgraded to a native Capacitor/Tauri shell later without duplicating the conversion engine.
+
 Browser end-to-end testing and cross-device visual QA were not run. Core tests and the production build are the initial checks; inspect the sample, your own image, and a multi-page PDF in your target browser before adding portfolio claims.
 
 ## Good next portfolio milestones

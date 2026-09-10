@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { InstallAppButton } from '@/components/install-app-button';
 import { defaults, parseRequirements, sizeLabel, type Rules, type Format } from '@/lib/requirements';
 import { inspectFile, prepareFile, sampleFile, type Source, type Result } from '@/lib/file-engine';
 
@@ -12,6 +13,7 @@ export default function Home(){
  const [source,setSource]=useState<Source|null>(null);const [result,setResult]=useState<Result|null>(null);const [rules,setRules]=useState<Rules>({...defaults});const [text,setText]=useState('');const [warnings,setWarnings]=useState<string[]>([]);const [error,setError]=useState('');const [busy,setBusy]=useState('');const [drag,setDrag]=useState(false);const [tab,setTab]=useState('original');const [sample,setSample]=useState(false);const [parsed,setParsed]=useState('');const [explanation,setExplanation]=useState('');const [help,setHelp]=useState<{title:string;text:string}[]>([]);
  const input=useRef<HTMLInputElement>(null);const screenshot=useRef<HTMLInputElement>(null);const seq=useRef(0);const active=useRef(false);const sourceRef=useRef<Source|null>(null);const resultRef=useRef<Result|null>(null);
  const releaseResult=(r:Result|null)=>{if(r){URL.revokeObjectURL(r.url);if(r.preview.startsWith('blob:'))URL.revokeObjectURL(r.preview);}};
+ useEffect(()=>{const incoming=new URLSearchParams(window.location.search).get('requirements');if(incoming&&!text)setText(incoming.slice(0,6000));},[]);
  useEffect(()=>{sourceRef.current=source;},[source]);useEffect(()=>{resultRef.current=result;},[result]);
  useEffect(()=>()=>{seq.current++;if(sourceRef.current)URL.revokeObjectURL(sourceRef.current.url);releaseResult(resultRef.current);},[]);
  function clearResult(){seq.current++;releaseResult(result);setResult(null);setTab('original');setError('');setHelp([]);setExplanation('');}
@@ -27,7 +29,7 @@ export default function Home(){
  return <div className="app-shell">
   <header className="topbar"><a href="/" className="brand" aria-label="FormFit home"><span className="brand-icon"><FileCheck2 size={25}/></span><span>FormFit</span><small>UPLOAD STUDIO</small></a><nav className="top-nav" aria-label="Primary"><span className="top-nav-active">Workspace</span><span>Why FormFit</span></nav><div className="top-note"><span className="privacy-pulse"/><LockKeyhole size={15}/><span>Your files stay on this device</span></div></header>
   <main>
-   <div className="intro"><div><div className="eyebrow"><span className="eyebrow-dot"/> The last step before submit</div><h1>Make your next upload <em>fit.</em></h1><p>The right format. The right size. One less thing in your way.</p></div><div className="intro-side"><div className="mini-stat"><strong>3</strong><span>checks before<br/>you download</span></div><div className="mini-stat"><strong>0</strong><span>files sent<br/>to a server</span></div><Button variant="outline" className="intro-action" disabled={isBusy} onClick={demo}><FileText size={15}/>Try a sample<ArrowRight size={15}/></Button></div></div>
+   <div className="intro"><div><div className="eyebrow"><span className="eyebrow-dot"/> The last step before submit</div><h1>Make your next upload <em>fit.</em></h1><p>The right format. The right size. One less thing in your way.</p></div><div className="intro-side"><div className="mini-stat"><strong>3</strong><span>checks before<br/>you download</span></div><div className="mini-stat"><strong>0</strong><span>files sent<br/>to a server</span></div><Button variant="outline" className="intro-action" disabled={isBusy} onClick={demo}><FileText size={15}/>Try a sample<ArrowRight size={15}/></Button><InstallAppButton/></div></div>
    <div className="workflow-rail" aria-label="FormFit workflow"><div className="workflow-item active"><span>01</span><div><b>Bring a file</b><small>Image or PDF</small></div></div><div className="workflow-line"/><div className={`workflow-item ${source?'active':''}`}><span>02</span><div><b>Set the brief</b><small>Read the form</small></div></div><div className="workflow-line"/><div className={`workflow-item ${result?'active':''}`}><span>03</span><div><b>Check & download</b><small>Only when it fits</small></div></div><div className="workflow-caption"><Sparkles size={14}/> Local-first by design</div></div>
    <div className="workspace">
     <div className="controls">

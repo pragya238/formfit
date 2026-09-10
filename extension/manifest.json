@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "FormFit Companion",
+  "version": "0.1.0",
+  "description": "Read upload requirements on the current page and prepare a compliant file with FormFit.",
+  "action": {
+    "default_title": "FormFit Companion",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["activeTab", "scripting"]
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormFit Companion</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="brand-row">
+        <div class="brand-mark">✓</div>
+        <div>
+          <p class="brand-name">FormFit</p>
+          <p class="brand-sub">COMPANION</p>
+        </div>
+        <span class="local-pill"><i></i> local scan</span>
+      </header>
+
+      <section class="page-card">
+        <p class="eyebrow">CURRENT PAGE</p>
+        <h1 id="page-title">Scanning this page…</h1>
+        <p id="page-host">Checking for an upload form</p>
+      </section>
+
+      <div id="status" class="status" role="status">Looking for visible file requirements.</div>
+
+      <section id="result" class="result" hidden>
+        <div class="result-head">
+          <div>
+            <p class="eyebrow">DETECTED BRIEF</p>
+            <h2>Here’s what the page says.</h2>
+          </div>
+          <span id="input-count" class="count-pill">0 inputs</span>
+        </div>
+        <div id="chips" class="chips"></div>
+        <p id="excerpt" class="excerpt"></p>
+        <div class="actions">
+          <button id="open" class="primary">Open in FormFit <span>↗</span></button>
+          <button id="copy" class="secondary">Copy brief</button>
+        </div>
+      </section>
+
+      <button id="rescan" class="rescan">↻ Scan again</button>
+      <footer>Only visible page text is read. Your file never enters the extension.</footer>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
